@@ -28,23 +28,22 @@ function App() {
       <header>
         <Navbar />
       </header>
-      <main>
-        {loading ? (
-          <div className="loading">
-            <Loader/>
-          </div>
-        ) : (
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/map' element={<PinMap />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/*' element={<NotFound />} />
-          </Routes>
-        )}
+      <main className={loading ? 'hide-content' : ''}>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/map' element={<PinMap />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
         <ToastContainer />
       </main>
+      {loading && (
+        <div className="loading">
+          <Loader />
+        </div>
+      )}
     </BrowserRouter>
   )
 }

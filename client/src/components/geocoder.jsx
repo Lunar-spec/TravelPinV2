@@ -18,7 +18,9 @@ const Geocoder = () => {
   useControl(() => ctrlGeocoder)
 
   return (
-    null
+    <div>
+      Geocoder
+    </div>
   )
 }
 

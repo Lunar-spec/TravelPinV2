@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes, ScrollRestoration } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +12,7 @@ import NotFound from './pages/NotFound/NotFound'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import About from './pages/About/About'
+import Loader from './components/Loader';
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 2000)
+    }, 3000)
   })
   return (
     <BrowserRouter>
@@ -30,11 +31,10 @@ function App() {
       <main>
         {loading ? (
           <div className="loading">
-            Loading...
+            <Loader/>
           </div>
         ) : (
           <Routes>
-            <ScrollRestoration />
             <Route path='/' element={<Home />} />
             <Route path='/map' element={<PinMap />} />
             <Route path='/about' element={<About />} />

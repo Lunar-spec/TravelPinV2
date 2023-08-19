@@ -8,6 +8,7 @@ import './App.scss'
 import Navbar from './components/Navbar'
 import Home from './pages/Home/Home'
 import PinMap from './pages/PinMap/PinMap'
+// import PinMap from './pages/pinMap/pinMap';
 import NotFound from './pages/NotFound/NotFound'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
@@ -16,19 +17,20 @@ import Loader from './components/Loader';
 
 function App() {
 
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000)
-  })
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000)
+  // })
   return (
     <BrowserRouter>
       <header>
         <Navbar />
       </header>
-      <main className={loading ? 'hide-content' : ''}>
+      {/* <main className={loading ? 'hide-content' : ''}> */}
+      <main>
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/map' element={<PinMap />} />
@@ -39,11 +41,11 @@ function App() {
         </Routes>
         <ToastContainer />
       </main>
-      {loading && (
+      {/* {loading && (
         <div className="loading">
           <Loader />
         </div>
-      )}
+      )} */}
     </BrowserRouter>
   )
 }

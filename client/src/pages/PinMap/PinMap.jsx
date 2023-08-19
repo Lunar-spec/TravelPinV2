@@ -54,6 +54,7 @@ const PinMap = () => {
         const { name, value } = e.target;
         setNewPlace((prevData) => ({ ...prevData, [name]: value }));
     };
+    // console.log(pins)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -181,7 +182,10 @@ const PinMap = () => {
                                     <p className='desc'>{marker.desc}</p>
                                     <label className='di'>Rating</label>
                                     <div className='stars'>
-                                        {Array(marker.rating).fill(<BsFillStarFill className='star' />)}
+                                        {/* {console.log(marker.rating)} */}
+                                        {Array.from({ length: marker.rating }, (_, index) => (
+                                            <BsFillStarFill key={index} className='star' />
+                                        ))}
                                     </div>
                                     <label className='di'>Information</label>
                                     <span className='username'>Created by: <b>{marker.username}</b></span>

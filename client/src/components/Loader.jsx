@@ -8,43 +8,43 @@ const Loader = () => {
                     <div className="crescent">
                         <span></span><span></span>
                     </div>
-                    <div className="star s1">
+                    <div className="starm s1">
                         <span></span><span></span>
                     </div>
-                    <div className="star s2">
+                    <div className="starm s2">
                         <span></span><span></span>
                     </div>
-                    <div className="star s3">
+                    <div className="starm s3">
                         <span></span><span></span>
                     </div>
-                    <div className="star s4">
+                    <div className="starm s4">
                         <span></span><span></span>
                     </div>
-                    <div className="star s5">
+                    <div className="starm s5">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss1">
+                    <div className="small-starm ss1">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss2">
+                    <div className="small-starm ss2">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss3">
+                    <div className="small-starm ss3">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss4">
+                    <div className="small-starm ss4">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss5">
+                    <div className="small-starm ss5">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss6">
+                    <div className="small-starm ss6">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss7">
+                    <div className="small-starm ss7">
                         <span></span><span></span>
                     </div>
-                    <div className="small-star ss8">
+                    <div className="small-starm ss8">
                         <span></span><span></span>
                     </div>
                     <div className="hut">

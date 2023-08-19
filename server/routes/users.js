@@ -6,19 +6,28 @@ const bcrypt = require("bcrypt");
 router.post("/reg", async (req, res) => {
     try {
         //make password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const { username, email, password } = req.body;
+
+        if (!(email && password && username)) {
+            res.status(400).send("All input is required");
+        }
+
+        const foundUser = await User.findOne(username);
+
+        if (foundUser) {
+            return res.status(409).json({ error: 'User already exist' })
+        }
+
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
         //create user
-        const newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
+        const newUser = await User.create({
+            username,
+            email: email.toLowerCase(),
             password: hashedPassword,
         })
 
-        //save
-        const user = await newUser.save();
-        res.status(200).json(user._id);
+        res.status(200).json(newUser);
     } catch (err) {
         res.status(500).json(err);
     }
@@ -36,20 +45,21 @@ router.post("/login", async (req, res) => {
                 req.body.password,
                 foundUser.password
             );
+
             if (validPassword) {
                 //if both passwords match:
                 res.status(200).json({ username: foundUser.username });
             } else {
                 //if both passwords dont match:
-                res.status(400).json({ err: "Incorrect username or password" });
+                res.status(400).json({ error: "Incorrect username or password" });
             }
         } else {
             //if !foundUser:
-            res.status(400).json({ err: "Incorrect username or password" });
+            res.status(400).json({ error: "Incorrect username or password" });
         }
 
     } catch (err) {
-        res.status(500).json(err);
+        res.status(500).json({error : 'Error in loggin in'});
     }
 });
 

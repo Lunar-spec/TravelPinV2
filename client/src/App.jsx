@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, ScrollRestoration } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +34,7 @@ function App() {
           </div>
         ) : (
           <Routes>
+            <ScrollRestoration />
             <Route path='/' element={<Home />} />
             <Route path='/map' element={<PinMap />} />
             <Route path='/about' element={<About />} />

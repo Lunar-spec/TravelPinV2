@@ -5,7 +5,7 @@
     cursor: default;
 
     .left {
-        background: linear-gradient(to right, #33333365, #cccccc00);
+        background: linear-gradient(to right, #3333333b, #cccccc00);
 
         .main-content {
             .title {
@@ -55,6 +55,7 @@
                 border: 0.1rem solid #ffffff76;
                 transition: 0.3s ease-out;
                 font-size: 1.2rem;
+                letter-spacing: 0.1rem;
 
                 &:hover {
                     border: 0.1rem solid transparent;
@@ -70,7 +71,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background: linear-gradient(to left, #33333398, #ffffff00);
+        background: linear-gradient(to left, #33333361, #ffffff00);
         width: 50%;
         gap: 2rem;
 
@@ -97,12 +98,14 @@
                     font-weight: 500;
                     letter-spacing: 0.3rem;
                     opacity: 0.9;
+                    color: #fff;
                 }
 
                 .description {
                     text-transform: capitalize;
                     font-size: 1.8rem;
                     font-weight: 500;
+                    color: #fff;
                     letter-spacing: 0.16rem;
                 }
             }

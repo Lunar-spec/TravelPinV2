@@ -3,60 +3,52 @@ import Map, { Marker, Popup, NavigationControl } from 'react-map-gl'
 import { BsFillStarFill } from 'react-icons/bs'
 import { MdDelete } from 'react-icons/md'
 import axios from 'axios'
+import * as dayjs from 'dayjs'
+import Geocoder from '../../components/Geocoder'
+import { toast } from 'react-toastify';
 
 import './PinMap.scss'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const PinMap = () => {
-    const currentUser = 'max'
-
+    const currentUser = localStorage.getItem('username');
     const [pins, setPins] = useState([])
 
     const [style, setStyle] = useState('mapbox://styles/mapbox/streets-v12')
     const [selectedLocation, setSelectedLocation] = useState({})
     const [newPlace, setNewPlace] = useState(null);
 
-    //*adding currentUser as username in backend
-    //* ---> check createTodo
-
     const handleChangeStyle = (event) => {
         const selectedStyle = event.target.value;
         let newStyle = 'mapbox://styles/mapbox/streets-v12';
 
         if (selectedStyle === 'Dark') {
-            newStyle = 'mapbox://styles/mapbox/dark-v10';
+            newStyle = 'mapbox://styles/mapbox/navigation-night-v1';
         } else if (selectedStyle === 'Satellite') {
-            newStyle = 'mapbox://styles/mapbox/satellite-v9';
+            newStyle = 'mapbox://styles/mapbox/satellite-streets-v12';
         }
         setStyle(newStyle);
-    }
-
-    const delPinStyle = {
-        color: 'rgb(255, 146, 123)',
-        top: '1rem',
-        right: '3rem',
-        fontSize: '1.5rem',
-        position: 'absolute',
-        cursor: 'pointer',
     }
 
     // console.log(newPlace)
 
     const handleAddClick = (e) => {
-        // if (currentUser != null) {
-        const [long, lat] = e.lngLat.toArray();
-        setNewPlace({
-            long,
-            lat,
-        })
-        // }
-        // else {
-        //     setShowErrorLogin(true)
-        // }
-        //console.log(long,lat)
-
+        if (currentUser != null) {
+            const [long, lat] = e.lngLat.toArray();
+            setNewPlace({
+                long,
+                lat,
+            })
+        }
+        else {
+            toast.warn('Please login to start pinning', {
+                position: "bottom-right",
+                hideProgressBar: true,
+                theme: 'dark',
+                autoClose: 1000,
+            });
+        }
     };
-    console.log(newPlace);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -66,8 +58,12 @@ const PinMap = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (newPlace.title == null || newPlace.desc == null || newPlace.rating == null) {
-            // setShowError(true) toastify
-            alert("Empty Pins aren't allowed")
+            toast.warn('All fields must be filled', {
+                position: "bottom-right",
+                hideProgressBar: true,
+                theme: 'dark',
+                autoClose: 1000,
+            });
         } else {
             try {
                 const res = await axios.post(`${import.meta.env.VITE_SERVER}/api/pin`, {
@@ -80,7 +76,15 @@ const PinMap = () => {
                 setNewPlace(null)
                 // window.location.reload(true)
             } catch (error) {
-                alert('Error in pinning the destination')
+                toast.error('Error in pinning the destination', {
+                    position: "bottom-right",
+                    autoClose: 1500,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "dark",
+                });
             }
         }
     }
@@ -91,7 +95,15 @@ const PinMap = () => {
             fetchPins();
             window.location.reload(false)
         } catch (error) {
-            console.log(error)
+            toast.error('Error in deleting the pin', {
+                position: "bottom-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "dark",
+            });
         }
     }
 
@@ -99,9 +111,17 @@ const PinMap = () => {
         try {
             const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/pin`);
             setPins(...pins, res.data)
-            console.log(res.data)
+            // console.log(res.data)
         } catch (error) {
-            console.log(error)
+            toast.error('Error', {
+                position: "bottom-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "dark",
+            });
         }
     }
 
@@ -109,7 +129,7 @@ const PinMap = () => {
         fetchPins();
     }, [])
 
-    console.log(selectedLocation)
+    // console.log(selectedLocation)
 
 
     return (
@@ -128,7 +148,7 @@ const PinMap = () => {
                 onDblClick={handleAddClick}
             >
                 <select className='change-style' onChange={handleChangeStyle}>
-                    <option>Default: Street</option>
+                    <option>Theme: Street</option>
                     <option value={'Dark'}>Dark</option>
                     <option value={'Satellite'}>Satellite</option>
                 </select>
@@ -140,7 +160,7 @@ const PinMap = () => {
                             latitude={marker.lat}
                             style={{ cursor: 'pointer' }}
                             onClick={() => setSelectedLocation(marker._id)}
-                            color={marker.username === currentUser ? '#DE3163' :'#ffbf00'}
+                            color={marker.username === currentUser ? '#DE3163' : '#ffbf00'}
                         />
 
                         {selectedLocation === marker._id && (
@@ -165,8 +185,15 @@ const PinMap = () => {
                                     </div>
                                     <label className='di'>Information</label>
                                     <span className='username'>Created by: <b>{marker.username}</b></span>
-                                    <span className='date'>Created {marker.createdAt}</span>
-                                    <MdDelete style={delPinStyle} onClick={() => deletePins(marker._id)} />
+                                    <span className='date'>Created {dayjs(marker.createdAt).format('DD/MM/YYYY')}</span>
+                                    <MdDelete style={{
+                                        color: currentUser === marker.username ? '#FA8072' : '#ccc',
+                                        top: '1rem',
+                                        right: '3rem',
+                                        fontSize: '1.5rem',
+                                        position: 'absolute',
+                                        cursor: 'pointer',
+                                    }} onClick={marker.username === currentUser ? () => deletePins(marker._id) : null} />
                                 </div>
                             </Popup>
                         )}
@@ -210,6 +237,7 @@ const PinMap = () => {
                         }
                     </div>
                 ))}
+                <Geocoder />
                 <NavigationControl />
             </Map>
         </div>

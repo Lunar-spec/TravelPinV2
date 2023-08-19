@@ -14,6 +14,31 @@ const PinMap = () => {
     const currentUser = localStorage.getItem('username');
     const [pins, setPins] = useState([])
 
+    const fetchPins = async () => {
+        try {
+            const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/pin`);
+            setPins(res.data)
+            // console.log(res.data)
+        } catch (error) {
+            toast.error('Error', {
+                position: "bottom-right",
+                autoClose: 1500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "dark",
+            });
+        }
+    }
+
+
+    useEffect(() => {
+        fetchPins();
+    }, [])
+
+
+
     const [style, setStyle] = useState('mapbox://styles/mapbox/streets-v12')
     const [selectedLocation, setSelectedLocation] = useState({})
     const [newPlace, setNewPlace] = useState(null);
@@ -71,9 +96,7 @@ const PinMap = () => {
                     username: currentUser,
                     ...newPlace
                 })
-                setPins(
-                    [...pins, res.data]
-                )
+                setPins([...pins, res.data]);
                 setNewPlace(null)
                 // window.location.reload(true)
             } catch (error) {
@@ -107,31 +130,7 @@ const PinMap = () => {
             });
         }
     }
-
-    const fetchPins = async () => {
-        try {
-            const res = await axios.get(`${import.meta.env.VITE_SERVER}/api/pin`);
-            setPins(...pins, res.data)
-            // console.log(res.data)
-        } catch (error) {
-            toast.error('Error', {
-                position: "bottom-right",
-                autoClose: 1500,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "dark",
-            });
-        }
-    }
-
-    useEffect(() => {
-        fetchPins();
-    }, [])
-
     // console.log(selectedLocation)
-
 
     return (
         <div>

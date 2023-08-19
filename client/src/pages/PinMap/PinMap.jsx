@@ -4,7 +4,7 @@ import { BsFillStarFill } from 'react-icons/bs'
 import { MdDelete } from 'react-icons/md'
 import axios from 'axios'
 import * as dayjs from 'dayjs'
-import Geocoder from '../../components/Geocoder'
+import Geocoder from '../../components/Geocoder.jsx'
 import { toast } from 'react-toastify';
 
 import './PinMap.scss'

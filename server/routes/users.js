@@ -13,10 +13,10 @@ router.post("/reg", async (req, res) => {
             res.status(400).send("All input is required");
         }
 
-        const foundUser = await User.findOne(username);
+        const foundUser = await User.findOne({username});
 
         if (foundUser) {
-            return res.status(409).json({ error: 'User already exist' })
+            res.status(409).json({ error: 'User already exist' })
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

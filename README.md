@@ -20,24 +20,26 @@ The **Travel Pin Application** is a _unique and interactive_ platform that enabl
 
 ## File Structure
 The project's file structure is organized as follows:
+```bash
 client/
   ├── src/
-  │     ├── components/
-  │     │     ├── Geocoder.jsx
-  │     │     ├── Loader.jsx
-  │     │     └── Navbar.jsx
-  │     ├── assets/
-  │     ├── pages/
-  │     │     ├── About.jsx
-  │     │     ├── Home.jsx
-  │     │     ├── PinMap.jsx
-  │     │     ├── NotFound.jsx
-  │     │     ├── Pinin.jsx
-  │     │     └── Register.jsx
+  │   ├── components/
+  │   │   ├── Geocoder.jsx
+  │   │   ├── Loader.jsx
+  │   │   └── Navbar.jsx
+  │   ├── assets/
+  │   ├── pages/
+  │   │   ├── About.jsx
+  │   │   ├── Home.jsx
+  │   │   ├── PinMap.jsx
+  │   │   ├── NotFound.jsx
+  │   │   ├── Pinin.jsx
+  │   │   └── Register.jsx
 server/
   ├── index.js
   ├── routes/
   └── models/
+```
 
 ## Installation and Setup
 To get started with the **Travel Pin Application**, follow these steps:

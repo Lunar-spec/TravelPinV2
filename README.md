@@ -26,7 +26,8 @@ client/
   │   ├── components/
   │   │   ├── Geocoder.jsx
   │   │   ├── Loader.jsx
-  │   │   └── Navbar.jsx
+  │   │   ├── Navbar.jsx
+  │   │   └── ...
   │   ├── assets/
   │   ├── pages/
   │   │   ├── About.jsx
@@ -35,6 +36,7 @@ client/
   │   │   ├── NotFound.jsx
   │   │   ├── Pinin.jsx
   │   │   └── Register.jsx
+  │   └── App.jsx
 server/
   ├── index.js
   ├── routes/
